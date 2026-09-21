@@ -1,101 +1,53 @@
-# Personal Portfolio Website - Shashank Raj
+# Personal Portfolio - Kavin Krishna M S
 
-A clean, modern, and highly performant personal portfolio website built with **React**, **Vite**, **Tailwind CSS**, and **Framer Motion**. This template is designed to be easily customizable and showcases a professional, animation-rich user interface.
-
-It features a multi-page architecture with dedicated sections for an introduction, skills, education, projects, competitive programming achievements, and a functional contact form.
+A clean, modern, and high-performance personal portfolio website for **Kavin Krishna M S** built with **React**, **Vite**, **Tailwind CSS**, and **Framer Motion**.
 
 ---
 
-## 🚀 Live Demo
+## ✨ Highlights
 
-[**View Portfolio on Vercel**](https://shashank-raj-portfolio.vercel.app)
-
----
-
-## ✨ Features
-
--   **Modern & Responsive UI:** Clean, minimalist design that looks great on all devices.
--   **Multi-Page Architecture:** Smooth client-side routing between all sections using React Router.
--   **Robust Animations:**
-    -   Seamless page transitions powered by Framer Motion.
-    -   Reliable "staggered entrance" animations for content on each page.
--   **Dark/Light Mode:** A beautiful, persistent theme toggle for user preference.
--   **Component-Based:** Built with reusable components for easy maintenance and customization.
--   **Contact Form Integration:** A functional contact form powered by Formspree.
--   **Performance-Optimized:** Fast load times and a smooth experience thanks to Vite and best practices.
+- **Dynamic Data Layer**: All portfolio content (About, Skills, Education, Projects, Certifications, Social links) is centralized in `src/data/portfolioData.js` for easy updates.
+- **Modern & Responsive UI**: Clean, minimalist design with smooth micro-animations and typography tailored for software engineering profiles.
+- **Client-Side Routing**: Fast page transitions powered by React Router and Framer Motion.
+- **Dark/Light Mode**: Smooth, persistent theme switching.
+- **Full-Stack Showcase**: Custom sections highlighting enterprise Java & Spring Boot backend projects, microservices, React 18/19 frontends, and verified certifications/workshops.
 
 ---
 
 ## 🛠️ Tech Stack
 
--   **Framework:** [React](https://react.dev/)
--   **Build Tool:** [Vite](https://vitejs.dev/)
--   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
--   **UI Components:** [Shadcn/ui](https://ui.shadcn.com/)
--   **Animation:** [Framer Motion](https://www.framer.com/motion/)
--   **Icons:** [Lucide React](https://lucide.dev/)
--   **Routing:** [React Router](https://reactrouter.com/)
--   **Deployment:** [Vercel](https://vercel.com/)
+- **Framework:** [React 19](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animation:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Routing:** [React Router](https://reactrouter.com/)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Running Locally
 
-To get a local copy up and running, follow these simple steps.
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### Prerequisites
+2. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-Make sure you have Node.js and npm installed on your machine.
-- `npm`
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1.  Clone the repo
-    ```sh
-    git clone https://github.com/shashank2401/react-vite-tailwind-portfolio-template.git
-    ```
-2.  Install NPM packages
-    ```sh
-    npm install
-    ```
-3.  Run the development server
-    ```sh
-    npm run dev
-    ```
-    Your site will be available at `http://localhost:5173/` (or another port if 5173 is in use).
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
 ---
 
-## 📂 File Structure
+## 📁 Customizing Content
 
-The project follows a standard component-based structure to keep the code organized and maintainable.
-
+To update personal information, projects, skills, or links, simply edit:
 ```
-src/
-├── components/
-│   ├── About.jsx
-│   ├── Academics.jsx
-│   ├── Contact.jsx
-│   ├── CP.jsx
-│   ├── Footer.jsx
-│   ├── Header.jsx
-│   ├── Layout.jsx
-│   ├── Projects.jsx
-│   ├── ScrollToTop.jsx
-│   ├── SideNav.jsx
-│   ├── Skills.jsx
-│   └── ui/              # Shadcn/ui components
-│       ├── button.jsx
-│       └── ...
-├── App.jsx              # Main app component with routing
-└── main.jsx             # Entry point of the application
+src/data/portfolioData.js
 ```
-
----
-
-## ✒️ Author
-
-**Shashank Raj**
+All components automatically consume data from this configuration file.

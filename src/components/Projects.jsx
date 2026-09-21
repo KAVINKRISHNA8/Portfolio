@@ -1,22 +1,32 @@
-import React, { memo, useMemo } from "react";
-import { Code, ExternalLink, FolderKanban } from "lucide-react";
+import React, { memo } from "react";
+import {
+  Code,
+  ExternalLink,
+  FolderKanban,
+  CheckCircle2,
+  Calendar,
+  Sparkles,
+  Server,
+  Layers,
+  ShieldCheck,
+  Github,
+} from "lucide-react";
 import { motion } from "framer-motion";
+import { PORTFOLIO_DATA } from "../data/portfolioData";
 
-// --- Animation Variants (The "Staggered Entrance" Pattern) ---
-// This container will orchestrate the animation for the whole page
+// Staggered Entrance Variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // Time delay between each child animating in
+      staggerChildren: 0.15,
     },
   },
 };
 
-// This variant will be used by each item in the container
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
@@ -27,97 +37,142 @@ const itemVariants = {
   },
 };
 
-
-// --- Child Component (No changes needed) ---
 const ProjectCard = memo(({ project }) => {
   return (
-    // This card is now an item in the grid's stagger animation
     <motion.div
       variants={itemVariants}
-      className="bg-white/90 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-700 rounded-2xl shadow p-6 flex flex-col h-full"
+      className="group relative bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200 dark:border-neutral-800 rounded-3xl shadow-md hover:shadow-2xl p-7 sm:p-8 flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1.5 overflow-hidden hover:border-primary/50"
     >
-      <h3 className="text-xl font-bold text-foreground mb-3 leading-tight">
-        {project.title}
-      </h3>
-      <p className="text-base text-muted-foreground mb-4 flex-grow">
-        {project.desc}
-      </p>
-      <div className="flex flex-wrap gap-2 mb-5 mt-auto">
-        {project.tags.map((tag, tagIndex) => (
-          <span
-            key={tagIndex}
-            className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600"
-          >
-            {tag}
+      {/* Ambient background glow */}
+      <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-bl from-primary/10 via-indigo-500/5 to-transparent rounded-full blur-3xl group-hover:from-primary/20 transition-all pointer-events-none" />
+
+      <div>
+        {/* Header Badges */}
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          {project.subtitle && (
+            <span className="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+              {project.subtitle}
+            </span>
+          )}
+          <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 border border-border">
+            <Calendar className="w-3.5 h-3.5 text-primary" />
+            {project.year}
           </span>
-        ))}
+        </div>
+
+        {/* Title */}
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-3 leading-snug group-hover:text-primary transition-colors tracking-tight">
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm sm:text-base text-muted-foreground mb-5 leading-relaxed">
+          {project.desc}
+        </p>
+
+        {/* Architectural Pillars / Highlights */}
+        {project.architectureHighlights && project.architectureHighlights.length > 0 && (
+          <div className="mb-5 p-3.5 rounded-2xl bg-neutral-100/70 dark:bg-neutral-800/60 border border-border/50">
+            <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <Server className="w-3.5 h-3.5 text-primary" />
+              Architecture Highlights:
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.architectureHighlights.map((arch, i) => (
+                <span
+                  key={i}
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-neutral-900 text-primary border border-primary/20 shadow-xs"
+                >
+                  {arch}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Feature Highlights */}
+        {project.highlights && project.highlights.length > 0 && (
+          <ul className="space-y-2.5 mb-6">
+            {project.highlights.map((point, idx) => (
+              <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground/85 leading-relaxed">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <div className="flex gap-4 flex-wrap">
-        {project.links.map((link, linkIndex) => (
-          <a
-            key={linkIndex}
-            href={link.href}
-            className="flex items-center gap-2 text-primary font-semibold text-sm hover:underline hover:text-foreground dark:hover:text-primary-foreground/60 transition-colors duration-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {link.type === "code" ? (
-              <Code className="w-4 h-4" />
-            ) : (
-              <ExternalLink className="w-4 h-4" />
-            )}
-            {link.type === "code" ? "Code" : "Demo"}
-          </a>
-        ))}
+
+      <div>
+        {/* Tech Badges */}
+        <div className="flex flex-wrap gap-2 mb-6 pt-4 border-t border-border/40">
+          {project.tags.map((tag, tagIndex) => (
+            <span
+              key={tagIndex}
+              className="px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700 shadow-xs"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-4 flex-wrap">
+          {project.links.map((link, linkIndex) => (
+            <a
+              key={linkIndex}
+              href={link.href}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-md hover:opacity-90 hover:scale-105 transition-all duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="w-4 h-4" />
+              {link.label || "View on GitHub"}
+            </a>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
 });
 ProjectCard.displayName = "ProjectCard";
 
-
-// --- Main Projects Component ---
 function ProjectsComponent() {
-  const projectsData = useMemo(
-    () => [
-      { title: "Text File Compressor", desc: "Built a robust, lossless text file compressor in C++ using the LZW algorithm, applying OOP and advanced algorithms. Achieved ~44% file size reduction on real-world files with efficient compression and decompression.", tags: ["C++", "LZW Algorithm", "OOPS"], links: [{ type: "code", href: "https://github.com/shashank2401/file-compressor-in-cpp" }] },
-      { title: "Pathfinding Visualizer", desc: "Interactive C++/SFML visualizer for Dijkstra's and A* algorithms. Features dynamic obstacles, diagonal movement, OOP, and optimized data structures for smooth, real-time animations.", tags: ["C++", "SFML", "Dijkstra's", "A*", "OOPS", "Data Structures"], links: [{ type: "code", href: "https://github.com/shashank2401/pathfinding-visualizer-in-cpp" }] },
-      { title: "Codeforces Visualizer", desc: "A minimal web app to view and compare Codeforces profiles. Shows key stats, rating history, and performance trends with clean visualizations. Built for fast, distraction-free, side-by-side comparisons.", tags: ["React", "Vite", "JavaScript", "Tailwind CSS", "Codeforces API"], links: [{ type: "demo", href: "https://cf-visualizer-rho.vercel.app" }, { type: "code", href: "https://github.com/shashank2401/cf-visualizer" }] },
-      { title: "GitHub Profile Visualizer", desc: "A dynamic app for exploring and comparing GitHub user profiles. Visualizes rich statistics, activity timelines, and repository insights, including a contribution heatmap. Supports side-by-side comparisons and offers both dark and light modes.", tags: ["React", "Vite", "JavaScript", "Tailwind CSS", "GitHub API"], links: [{ type: "demo", href: "https://github-profile-visualizer-six.vercel.app/" }, { type: "code", href: "https://github.com/shashank2401/github-profile-visualizer" }] },
-      { title: "Weather App", desc: "A sleek, responsive weather application delivering real-time weather updates for any city. Features location-based forecasts, intuitive search suggestions, and seamless toggling between Celsius and Fahrenheit.", tags: ["HTML", "CSS", "JavaScript", "Weather API", "Responsive Design"], links: [{ type: "demo", href: "https://weather-app-zeta-three-62.vercel.app/" }, { type: "code", href: "https://github.com/shashank2401/weather-app" }] },
-      { title: "Soil-Water Characteristic Curve Prediction", desc: "Used Artificial Neural Networks (ANNs) to predict SWCC parameters from soil properties for plastic soils. Improved geotechnical prediction for slope stability and foundation design.", tags: ["Python", "TensorFlow", "ANN", "Soil Mechanics", "Data Analysis"], links: [{ type: "code", href: "https://github.com/shashank2401/swcc-prediction-using-ann" }] },
-    ],
-    []
-  );
+  const { projects } = PORTFOLIO_DATA;
 
   return (
-    <div className="w-full min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
-      {/* 1. This is the SINGLE animation container for the whole page. */}
-      {/* It uses `animate`, not `whileInView`, for guaranteed execution. */}
+    <div className="w-full min-h-[85vh] flex flex-col items-center justify-center px-4 sm:px-8 py-10">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-col items-center w-full"
+        className="flex flex-col items-center w-full max-w-5xl"
       >
-        {/* Item 1: The header text block */}
-        <motion.div variants={itemVariants} className="flex flex-col items-center text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold text-center mb-4 flex items-center gap-4 text-foreground">
-                <FolderKanban className="w-8 h-8 sm:w-11 sm:h-11 text-primary drop-shadow-sm" />
-                Projects
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-center mb-10">
-                Here are some of the projects I've worked on, ranging from algorithm visualizers and utilities to frontend tools and machine learning models. Each project reflects my passion for clean design, efficient problem-solving, and practical implementation.
-            </p>
+        {/* Section Header */}
+        <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-200/60 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 mb-4 shadow-sm">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+            <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+              Featured Work & Systems
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 tracking-tight">
+            Engineering &{" "}
+            <span className="bg-gradient-to-r from-primary via-indigo-600 to-purple-500 dark:from-white dark:via-primary dark:to-indigo-300 bg-clip-text text-transparent">
+              Full-Stack Projects
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Production-grade microservices, enterprise HR management systems, and reactive dashboards engineered with modern Java and React standards.
+          </p>
         </motion.div>
 
-        {/* Item 2: The entire project card grid animates in as one block... */}
+        {/* Projects Grid */}
         <motion.div
-          // It is ALSO a container for its own children (the cards)
           variants={containerVariants}
-          className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="w-full grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {projectsData.map((project, index) => (
+          {projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </motion.div>
@@ -126,5 +181,4 @@ function ProjectsComponent() {
   );
 }
 
-// Export the memoized component in a standard way
 export default memo(ProjectsComponent);

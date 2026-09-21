@@ -1,139 +1,236 @@
 import React, { useState, useCallback, useMemo, memo } from "react";
-import { Code, Layers, Terminal, Sparkles, Settings2 } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Code,
+  Layers,
+  Server,
+  Database,
+  ShieldCheck,
+  BrainCircuit,
+  Wrench,
+  Settings2,
+  Search,
+  X,
+  Sparkles,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { PORTFOLIO_DATA } from "../data/portfolioData";
 
-// --- Animation Variants (The "Staggered Entrance" Pattern) ---
-// This container will orchestrate the animation for the whole page
+// Staggered Entrance Animation Variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // Time delay between each child animating in
+      staggerChildren: 0.08,
     },
   },
 };
 
-// This variant will be used by each item in the container
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
 };
 
-// --- Child Components (No changes needed) ---
-const SkillTag = memo(({ tag, onMouseEnter, onMouseLeave, className }) => (
+const iconMap = {
+  Code: <Code className="w-5 h-5" />,
+  Layers: <Layers className="w-5 h-5" />,
+  Server: <Server className="w-5 h-5" />,
+  Database: <Database className="w-5 h-5" />,
+  ShieldCheck: <ShieldCheck className="w-5 h-5" />,
+  BrainCircuit: <BrainCircuit className="w-5 h-5" />,
+  Wrench: <Wrench className="w-5 h-5" />,
+};
+
+const SkillTag = memo(({ tag, onMouseEnter, onMouseLeave, isHovered, isHighlighted }) => (
   <span
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
-    className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors duration-150 ${className} text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-200 dark:hover:bg-neutral-700`}
+    className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 border cursor-default ${
+      isHovered || isHighlighted
+        ? "bg-primary text-primary-foreground border-primary scale-105 shadow-md ring-2 ring-primary/20"
+        : "bg-neutral-100 dark:bg-neutral-800/90 text-neutral-800 dark:text-neutral-200 border-neutral-300/80 dark:border-neutral-700/80 hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:border-primary/40"
+    }`}
   >
     {tag}
   </span>
 ));
 SkillTag.displayName = "SkillTag";
 
-const SkillSection = memo(({ section, hoveredTag, onTagHover, onTagLeave }) => {
-  const { icon, title, tags } = section;
+const SkillSection = memo(({ section, hoveredTag, onTagHover, onTagLeave, searchQuery }) => {
+  const { icon, category, skills } = section;
+  const iconElement = iconMap[icon] || <Code className="w-5 h-5" />;
 
-  const tagElements = useMemo(
-    () =>
-      tags.map((tag, i) => {
-        const tagId = `${title}-${i}`;
-        const isHovered = hoveredTag === tagId;
-        return (
-          <SkillTag
-            key={tag}
-            tag={tag}
-            className={
-              isHovered
-                ? "bg-neutral-200 dark:bg-neutral-700"
-                : "bg-neutral-100 dark:bg-neutral-800"
-            }
-            onMouseEnter={() => onTagHover(tagId)}
-            onMouseLeave={onTagLeave}
-          />
-        );
-      }),
-    [tags, title, hoveredTag, onTagHover, onTagLeave]
-  );
+  const filteredSkills = useMemo(() => {
+    if (!searchQuery.trim()) return skills;
+    const q = searchQuery.toLowerCase().trim();
+    return skills.filter((s) => s.toLowerCase().includes(q));
+  }, [skills, searchQuery]);
+
+  if (filteredSkills.length === 0 && searchQuery.trim()) {
+    return null;
+  }
 
   return (
-    // This card is now an item in the grid's stagger animation
     <motion.div
       variants={itemVariants}
-      className="rounded-2xl bg-white/90 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-700 shadow p-6 flex flex-col"
+      layout
+      className="rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-xl p-6 flex flex-col justify-between hover:border-primary/40 transition-all duration-300"
     >
-      <div className="flex items-center gap-3 mb-5">
-        <div className="p-3 rounded-xl bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 shadow-sm">
-          {icon}
+      <div>
+        <div className="flex items-center justify-between gap-3 mb-5">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-primary/10 text-primary border border-primary/20 shadow-sm">
+              {iconElement}
+            </div>
+            <h3 className="text-lg sm:text-xl font-bold text-foreground">
+              {category}
+            </h3>
+          </div>
+          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-muted-foreground border border-border">
+            {skills.length}
+          </span>
         </div>
-        <h3 className="text-xl font-semibold text-neutral-800 dark:text-neutral-100">
-          {title}
-        </h3>
+
+        <div className="flex flex-wrap gap-2.5">
+          {skills.map((tag, i) => {
+            const tagId = `${category}-${i}`;
+            const isHovered = hoveredTag === tagId;
+            const isHighlighted =
+              searchQuery.trim() !== "" &&
+              tag.toLowerCase().includes(searchQuery.toLowerCase().trim());
+
+            return (
+              <SkillTag
+                key={tag}
+                tag={tag}
+                isHovered={isHovered}
+                isHighlighted={isHighlighted}
+                onMouseEnter={() => onTagHover(tagId)}
+                onMouseLeave={onTagLeave}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div className="flex flex-wrap gap-3">{tagElements}</div>
     </motion.div>
   );
 });
 SkillSection.displayName = "SkillSection";
 
-// --- Static Data (No changes needed) ---
-const SKILLS_SECTIONS = [
-    { icon: <Code className="w-6 h-6" />, title: "Programming Languages", tags: ["C", "C++", "Java", "JavaScript", "Python", "HTML", "CSS"] },
-    { icon: <Layers className="w-6 h-6" />, title: "Frameworks & Libraries", tags: ["React", "Tailwind CSS", "SFML", "NumPy", "Pandas"] },
-    { icon: <Terminal className="w-6 h-6" />, title: "Tools & Platforms", tags: ["Git", "GitHub", "VS Code", "Jupyter Notebook", "Sublime Text"] },
-    { icon: <Sparkles className="w-6 h-6" />, title: "Interests", tags: ["Competitive Programming", "DSA", "Machine Learning", "Web Development"] },
-];
-
-
-// --- Main Skills Component ---
 const SkillsComponent = memo(function Skills() {
   const [hoveredTag, setHoveredTag] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const handleTagHover = useCallback((tagId) => setHoveredTag(tagId), []);
   const handleTagLeave = useCallback(() => setHoveredTag(null), []);
 
+  const { skills } = PORTFOLIO_DATA;
+
+  const categories = useMemo(() => ["All", ...skills.map((s) => s.category)], [skills]);
+
+  const displayedSections = useMemo(() => {
+    let result = skills;
+    if (selectedCategory !== "All") {
+      result = result.filter((s) => s.category === selectedCategory);
+    }
+    return result;
+  }, [skills, selectedCategory]);
+
+  const totalSkillCount = useMemo(
+    () => skills.reduce((acc, s) => acc + s.skills.length, 0),
+    [skills]
+  );
+
   return (
-    <div className="w-full min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
-      {/* 1. This is the SINGLE animation container for the whole page. */}
-      {/* It uses `animate`, not `whileInView`, for guaranteed execution. */}
+    <div className="w-full min-h-[85vh] flex flex-col items-center justify-center px-4 sm:px-8 py-10">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-col items-center w-full"
+        className="flex flex-col items-center w-full max-w-5xl"
       >
-        {/* Item 1: The header text block */}
-        <motion.div variants={itemVariants} className="flex flex-col items-center text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold text-center mb-4 flex items-center gap-4 text-foreground">
-                <Settings2 className="w-8 h-8 sm:w-11 sm:h-11 text-primary drop-shadow-sm" />
-                Skills & Interests
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-                Here you'll find a snapshot of my technical toolkit and passions. I
-                believe in learning by doing, and my skills reflect a blend of academic
-                depth and hands-on project work.
-            </p>
+        {/* Section Header */}
+        <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-200/60 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 mb-4 shadow-sm">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+            <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+              Technical Stack ({totalSkillCount} Skills)
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 tracking-tight">
+            Skills &{" "}
+            <span className="bg-gradient-to-r from-primary via-indigo-600 to-purple-500 dark:from-white dark:via-primary dark:to-indigo-300 bg-clip-text text-transparent">
+              Proficiencies
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive foundation in full-stack web development, enterprise Java & Spring Boot backend services, distributed systems, and core computer science principles.
+          </p>
         </motion.div>
-        
-        {/* Item 2: The entire skill card grid animates in as one block... */}
+
+        {/* Search & Filter Controls */}
+        <motion.div variants={itemVariants} className="w-full max-w-2xl mb-8 space-y-4">
+          <div className="relative w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search skills (e.g., Spring Boot, React, Docker, SQL, JWT)..."
+              className="w-full pl-12 pr-10 py-3 rounded-2xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-300 dark:border-neutral-700 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm text-sm"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Category Pills */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                  selectedCategory === cat
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "bg-neutral-100 dark:bg-neutral-800 text-muted-foreground hover:text-foreground hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Grid of Categorized Skills */}
         <motion.div
-          variants={containerVariants} // It's also a container for its own children
-          className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={containerVariants}
+          layout
+          className="w-full grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {SKILLS_SECTIONS.map((section) => (
+          {displayedSections.map((section) => (
             <SkillSection
-              key={section.title}
+              key={section.category}
               section={section}
               hoveredTag={hoveredTag}
               onTagHover={handleTagHover}
               onTagLeave={handleTagLeave}
+              searchQuery={searchQuery}
             />
           ))}
         </motion.div>

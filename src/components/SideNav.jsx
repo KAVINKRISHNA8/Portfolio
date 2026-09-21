@@ -5,7 +5,7 @@ import {
   BrainCircuit,
   GraduationCap,
   FolderKanban,
-  Swords,
+  Award,
   Mail,
   X,
 } from "lucide-react";
@@ -17,7 +17,7 @@ const navLinks = [
   { to: "/skills", icon: BrainCircuit, text: "Skills" },
   { to: "/academics", icon: GraduationCap, text: "Education" },
   { to: "/projects", icon: FolderKanban, text: "Projects" },
-  { to: "/cp", icon: Swords, text: "CP" },
+  { to: "/certifications", icon: Award, text: "Certifications" },
   { to: "/contact", icon: Mail, text: "Contact" },
 ];
 

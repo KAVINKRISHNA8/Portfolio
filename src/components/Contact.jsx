@@ -32,6 +32,8 @@ const itemVariants = {
 };
 
 
+import { PORTFOLIO_DATA } from "../data/portfolioData";
+
 // --- Status Message Component (Unchanged) ---
 const StatusMessage = ({ status, message }) => {
   if (status === "idle") return null;
@@ -130,13 +132,13 @@ function ContactComponent() {
 
         <motion.div variants={itemVariants}>
           <a
-            href="mailto:shashankraj0124@gmail.com"
+            href={`mailto:${PORTFOLIO_DATA.personal.email}`}
             className="flex justify-center items-center gap-2 text-primary text-lg font-medium hover:underline transition-colors duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Mail className="w-5 h-5" />
-            shashankraj0124@gmail.com
+            {PORTFOLIO_DATA.personal.email}
           </a>
         </motion.div>
 

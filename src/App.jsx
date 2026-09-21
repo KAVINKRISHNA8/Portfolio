@@ -12,7 +12,7 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Academics from "./components/Academics";
 import Projects from "./components/Projects";
-import CP from "./components/CP";
+import Certifications from "./components/Certifications";
 import Contact from "./components/Contact";
 
 
@@ -74,7 +74,8 @@ const AnimatedRoutes = memo(() => {
         { path: "/skills", Component: Skills },
         { path: "/academics", Component: Academics },
         { path: "/projects", Component: Projects },
-        { path: "/cp", Component: CP },
+        { path: "/certifications", Component: Certifications },
+        { path: "/cp", Component: Certifications },
         { path: "/contact", Component: Contact },
     ];
     

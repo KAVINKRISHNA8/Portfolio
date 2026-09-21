@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Sun, Moon, Menu } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
+import { PORTFOLIO_DATA } from "../data/portfolioData";
+
 const headerVariants = {
   hidden: { y: -100, opacity: 0 },
   visible: {
@@ -21,7 +23,7 @@ const navLinks = [
   { to: "/skills", label: "Skills" },
   { to: "/academics", label: "Education" },
   { to: "/projects", label: "Projects" },
-  { to: "/cp", label: "CP" },
+  { to: "/certifications", label: "Certifications" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -44,9 +46,12 @@ const Header = memo(({ toggleTheme, currentTheme, onHamburgerClick }) => {
       className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-8 py-4 bg-muted/70 dark:bg-muted/50 backdrop-blur-md shadow-md border-b border-border/40"
       style={{ willChange: "transform", transform: "translate3d(0, 0, 0)" }}
     >
-      {/* THE FIX: Changed Link to point to "/" */}
-      <Link to="/" className="text-2xl sm:text-3xl font-extrabold text-primary tracking-wide select-none hover:opacity-80 transition">
-        Shashank Raj
+      <Link to="/" className="flex items-center gap-2.5 text-xl sm:text-2xl font-extrabold text-primary tracking-wide select-none hover:opacity-80 transition">
+        <span>{PORTFOLIO_DATA.personal.name}</span>
+        <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Available
+        </span>
       </Link>
 
       <nav className="hidden min-[935px]:flex gap-2 sm:gap-4 md:gap-6 items-center">
