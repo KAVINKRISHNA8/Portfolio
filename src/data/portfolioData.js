@@ -6,6 +6,7 @@ export const PORTFOLIO_DATA = {
     college: "Karpagam College Of Engineering",
     location: "Coimbatore, India",
     email: "kavinkrishna2007@gmail.com",
+    web3formsAccessKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "",
     avatar: "/assets/kavin_avatar.jpg",
     resumeUrl: "#", // User can link their Google Drive or downloadable PDF
     summary:

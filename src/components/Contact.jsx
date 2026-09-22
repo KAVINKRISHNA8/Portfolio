@@ -1,5 +1,5 @@
 import React, { useState, memo } from "react";
-import { Mail, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Mail, Send, CheckCircle2, AlertCircle, Loader2, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -77,36 +77,82 @@ function ContactComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormState({ status: "loading", message: "Sending, please wait..." });
+    setFormState({ status: "loading", message: "Sending your message..." });
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      const response = await fetch("https://formspree.io/f/mldnaeeb", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+    const accessKey =
+      import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ||
+      PORTFOLIO_DATA.personal.web3formsAccessKey;
 
-      if (response.ok) {
+    // If access key is configured, send via Web3Forms API
+    if (accessKey && accessKey.trim() !== "") {
+      try {
+        const payload = {
+          access_key: accessKey.trim(),
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          subject: `Portfolio Contact from ${data.name}`,
+          from_name: "Portfolio Contact Form",
+        };
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          setFormState({
+            status: "success",
+            message: "Thank you! Your message has been sent directly to my inbox.",
+          });
+          e.target.reset();
+          setTimeout(() => setFormState({ status: "idle", message: "" }), 6000);
+          return;
+        } else {
+          throw new Error(result.message || "Failed to send via form service");
+        }
+      } catch (err) {
+        // Fallback to mail client if API fails
+        const subject = encodeURIComponent(`Portfolio Message from ${data.name || "Visitor"}`);
+        const body = encodeURIComponent(
+          `Hi Kavin,\n\n${data.message}\n\nFrom: ${data.name} (${data.email})`
+        );
+        window.open(
+          `mailto:${PORTFOLIO_DATA.personal.email}?subject=${subject}&body=${body}`,
+          "_blank"
+        );
         setFormState({
           status: "success",
-          message: "Thank you! Your message has been sent successfully.",
+          message: "Opening your email app to send the message directly...",
         });
-        e.target.reset();
-        setTimeout(() => setFormState({ status: "idle", message: "" }), 5000);
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to send message");
+        setTimeout(() => setFormState({ status: "idle", message: "" }), 6000);
+        return;
       }
-    } catch (error) {
-      setFormState({
-        status: "error",
-        message: "An error occurred. Please try again or email me directly.",
-      });
-      setTimeout(() => setFormState({ status: "idle", message: "" }), 5000);
     }
+
+    // Default fallback when Web3Forms key is not yet set
+    const subject = encodeURIComponent(`Portfolio Message from ${data.name || "Visitor"}`);
+    const body = encodeURIComponent(
+      `Hi Kavin,\n\n${data.message}\n\nFrom: ${data.name} (${data.email})`
+    );
+    window.open(
+      `mailto:${PORTFOLIO_DATA.personal.email}?subject=${subject}&body=${body}`,
+      "_blank"
+    );
+    setFormState({
+      status: "success",
+      message: "Opening your email client to complete sending the message...",
+    });
+    setTimeout(() => setFormState({ status: "idle", message: "" }), 6000);
   };
 
   return (
@@ -180,6 +226,27 @@ function ContactComponent() {
             </Button>
           </motion.div>
         </motion.form>
+
+        {/* Quick Direct Actions */}
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full text-sm">
+          <a
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PORTFOLIO_DATA.personal.email)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-foreground transition-all duration-200 border border-neutral-200 dark:border-neutral-700 font-medium shadow-xs"
+          >
+            <span>Compose in Gmail</span>
+            <ExternalLink className="w-3.5 h-3.5 text-primary" />
+          </a>
+
+          <a
+            href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-foreground transition-all duration-200 border border-neutral-200 dark:border-neutral-700 font-medium shadow-xs"
+          >
+            <Mail className="w-3.5 h-3.5 text-primary" />
+            <span>Open in Mail App</span>
+          </a>
+        </motion.div>
       </motion.div>
     </div>
   );
