@@ -20,7 +20,7 @@ export const PORTFOLIO_DATA = {
     stats: [
       { value: "9+", label: "Microservices", highlight: "Spring Boot Architecture" },
       { value: "7.5", label: "CGPA", highlight: "B.E. Computer Science" },
-      { value: "3+", label: "Certifications", highlight: "IIT Madras & Microsoft" },
+      { value: "4+", label: "Certifications", highlight: "Cisco & Microsoft" },
       { value: "2028", label: "Graduating Batch", highlight: "Karpagam College of Eng." },
     ],
   },
@@ -221,6 +221,23 @@ export const PORTFOLIO_DATA = {
   ],
 
   certifications: [
+    {
+      title: "CCNA: Introduction to Networks",
+      issuer: "Cisco Networking Academy • Karpagam College of Engineering",
+      location: "Coimbatore, India",
+      year: "2026",
+      type: "Course Completion",
+      certId: "472b4292-4028-44b7-97e0-fe2424b2b25b",
+      desc: "Comprehensive networking certification covering network architecture, IP addressing (IPv4/IPv6), Ethernet operations, subnetting, media access control, and core networking fundamentals.",
+      topics: [
+        "Computer Networks",
+        "CCNA",
+        "IPv4 & IPv6",
+        "Subnetting",
+        "Network Security",
+        "Cisco",
+      ],
+    },
     {
       title: "Data Science Workshop",
       issuer: "Top Engineers - India, IIT Madras Research Park",

@@ -73,10 +73,20 @@ const CertificationCard = memo(({ cert }) => (
     </div>
 
     <div className="pt-4 border-t border-border/50 flex items-center justify-between">
-      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-        <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-        Verified Credential
-      </span>
+      <div className="flex flex-col">
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          Verified Credential
+        </span>
+        {cert.certId && (
+          <span
+            className="text-[10px] text-muted-foreground/80 font-mono mt-0.5 tracking-tight"
+            title={`Credential ID: ${cert.certId}`}
+          >
+            ID: {cert.certId.slice(0, 16)}...
+          </span>
+        )}
+      </div>
       <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
         {cert.type}
       </span>
