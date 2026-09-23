@@ -1,0 +1,33 @@
+import React from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Achievements from './components/Achievements';
+import Education from './components/Education';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-[#07080e] text-[#f1f5f9] font-sans selection:bg-violet-500 selection:text-white relative">
+      {/* Background ambient cosmic lighting */}
+      <div className="fixed inset-0 bg-grid-pattern opacity-15 pointer-events-none -z-10" />
+      <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[160px] pointer-events-none -z-10" />
+      <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none -z-10" />
+
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Achievements />
+        <Education />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
