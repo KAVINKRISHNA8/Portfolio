@@ -1,250 +1,185 @@
-import React, { useState, useEffect, memo, useMemo } from "react";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  FileText,
-  GraduationCap,
-  MapPin,
-  Code2,
-  Copy,
-  Check,
-  Sparkles,
-  Layers,
-  Award,
-  Zap,
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { PORTFOLIO_DATA } from "../data/portfolioData";
+import React from 'react';
+import { Server, Layout, ShieldCheck, Database, Cpu, Award, Layers } from 'lucide-react';
+import { personalInfo, focusPillars } from '../data/portfolioData';
 
-// Memoized social link component
-const SocialLink = memo(({ href, icon, title, className }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={className}
-    title={title}
-    aria-label={title}
-  >
-    {icon}
-  </a>
-));
-SocialLink.displayName = "SocialLink";
+const iconMap = {
+  Server: Server,
+  Layout: Layout,
+  ShieldCheck: ShieldCheck,
+  Database: Database,
+  Cpu: Cpu,
+  Award: Award
+};
 
-// Memoized tag component
-const Tag = memo(({ tag }) => (
-  <span className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700 hover:border-primary/40 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all shadow-sm">
-    {tag}
-  </span>
-));
-Tag.displayName = "Tag";
-
-export default memo(function About() {
-  const { personal, socialLinks, tags } = PORTFOLIO_DATA;
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [copied, setCopied] = useState(false);
-
-  // Cycling roles
-  useEffect(() => {
-    if (!personal.roles || personal.roles.length === 0) return;
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % personal.roles.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, [personal.roles]);
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
-  const socialLinksElements = useMemo(
-    () =>
-      socialLinks.map(({ platform, url }) => {
-        let icon = <Mail className="w-5 h-5" />;
-        if (platform === "GitHub") icon = <Github className="w-5 h-5" />;
-        if (platform === "LinkedIn") icon = <Linkedin className="w-5 h-5" />;
-        if (platform === "LeetCode") icon = <Code2 className="w-5 h-5" />;
-
-        return (
-          <SocialLink
-            key={platform}
-            href={url}
-            icon={icon}
-            title={platform}
-            className="w-11 h-11 flex items-center justify-center rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:scale-110 hover:border-primary/50 transition-all shadow-sm"
-          />
-        );
-      }),
-    [socialLinks]
-  );
-
-  const tagElements = useMemo(
-    () => tags.map((tag) => <Tag key={tag} tag={tag} />),
-    [tags]
-  );
-
+export default function About() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="w-full min-h-[85vh] flex flex-col items-center justify-center py-10 px-4 sm:px-8"
-    >
-      <div className="flex flex-col md:flex-row items-center justify-center gap-10 lg:gap-14 w-full max-w-5xl mb-12">
-        {/* Profile Image with Ambient Aura */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative flex-shrink-0 group"
-        >
-          {/* Ambient Glow Backdrop */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-primary via-indigo-500 to-purple-600 rounded-full blur-xl opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse" />
-
-          <div
-            className="relative w-48 h-48 sm:w-60 sm:h-60 rounded-full overflow-hidden border-4 border-white dark:border-neutral-900 shadow-2xl bg-neutral-200 dark:bg-neutral-800 ring-2 ring-primary/30 group-hover:scale-105 transition-transform duration-300"
-            tabIndex={0}
-            aria-label={`Profile photo of ${personal.name}`}
-          >
-            <img
-              src={personal.avatar}
-              alt={personal.name}
-              loading="eager"
-              decoding="async"
-              className="object-cover w-full h-full"
-              style={{ aspectRatio: "1/1", objectPosition: "center 15%" }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex-1 flex flex-col items-center md:items-start"
-        >
-          {/* Status Indicator */}
-          {personal.status && (
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-4 shadow-sm">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                {personal.status}
-              </span>
-            </div>
-          )}
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-2 text-foreground text-center md:text-left tracking-tight">
-            Hi, I'm{" "}
-            <span className="bg-gradient-to-r from-neutral-900 via-primary to-indigo-600 dark:from-white dark:via-primary dark:to-indigo-300 bg-clip-text text-transparent">
-              {personal.name}
-            </span>
-          </h1>
-
-          {/* Dynamic Role Cycling */}
-          <div className="h-8 mb-3 flex items-center justify-center md:justify-start">
-            <span className="text-lg sm:text-xl text-muted-foreground mr-2 font-medium">I am a</span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="text-lg sm:text-xl font-bold text-primary underline decoration-primary/40 underline-offset-4"
-              >
-                {personal.roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-muted-foreground text-sm mb-4">
-            <div className="flex items-center gap-1.5">
-              <GraduationCap className="w-4 h-4 text-primary" />
-              <span>{personal.college}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-primary" />
-              <span>{personal.location}</span>
-            </div>
-          </div>
-
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mb-5 text-center md:text-left">
-            {personal.summary}
+    <section id="about" className="py-20 relative font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#f5f2eb] tracking-tight">
+            About <span className="bg-gradient-to-r from-[#f5f2eb] via-[#e3dac9] to-[#cbb994] bg-clip-text text-transparent">My Journey</span>
+          </h2>
+          <p className="text-[#a6a095] text-base">
+            Bridging architectural rigor with scalable enterprise backend and reactive frontend engineering.
           </p>
+        </div>
 
-          <div className="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
-            {tagElements}
-          </div>
-
-          {/* Action Links & Copy Email */}
-          <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-            {socialLinksElements}
-
-            <button
-              onClick={handleCopyEmail}
-              type="button"
-              className="inline-flex items-center gap-2 px-4 h-11 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:scale-105 transition-all shadow-sm font-medium text-sm"
-              title="Copy email to clipboard"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
-                    Email Copied!
-                  </span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4 text-muted-foreground" />
-                  <span>Copy Email</span>
-                </>
-              )}
-            </button>
-
-            <a
-              href="mailto:kavinkrishna2007@gmail.com"
-              className="inline-flex items-center gap-2 px-5 h-11 rounded-xl bg-primary text-primary-foreground hover:opacity-90 hover:scale-105 transition-all shadow-md font-semibold text-sm"
-            >
-              <Mail className="w-4 h-4" />
-              Get In Touch
-            </a>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Metrics & Highlights Grid */}
-      {personal.stats && (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-6 border-t border-border/40"
-        >
-          {personal.stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="group p-5 rounded-2xl bg-white/60 dark:bg-neutral-900/60 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col items-center text-center"
-            >
-              <div className="text-3xl sm:text-4xl font-black text-primary tracking-tight mb-1 group-hover:scale-110 transition-transform">
-                {stat.value}
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column (7 cols): Narrative Story & 4 Feature Pillars */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="glass-card p-6 sm:p-8 rounded-3xl space-y-5 border border-[#2a2925]">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 pb-3 border-b border-[#2a2925]">
+                <div className="w-12 h-12 rounded-2xl bg-[#201f1c] border border-[#383631] flex items-center justify-center text-[#d4c5a9] shrink-0 shadow-sm">
+                  <Server size={22} />
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f5f2eb]">
+                    Software Engineer & Systems Builder
+                  </h3>
+                  <p className="text-xs font-mono text-[#d4c5a9] mt-0.5">
+                    B.E. CSE • Karpagam College of Engineering
+                  </p>
+                </div>
               </div>
-              <div className="text-sm font-bold text-foreground">
-                {stat.label}
-              </div>
-              <div className="text-xs text-muted-foreground mt-0.5">
-                {stat.highlight}
+
+              <p className="text-[#a6a095] text-base leading-relaxed">
+                I am a Computer Science and Engineering student at{' '}
+                <span className="text-[#f5f2eb] font-semibold">{personalInfo.college}</span> (Coimbatore), 
+                maintaining an academic standing of{' '}
+                <span className="text-[#e3dac9] font-bold">{personalInfo.cgpa}</span>. 
+                My focus centers on constructing resilient backend microservices, robust RESTful APIs, and responsive, interactive user experiences.
+              </p>
+
+              <p className="text-[#a6a095] text-base leading-relaxed">
+                My engineering approach is built around enterprise standards: architecting distributed systems with{' '}
+                <span className="text-[#f5f2eb] font-semibold">Java 17</span> and{' '}
+                <span className="text-[#f5f2eb] font-semibold">Spring Boot 3</span>, enforcing end-to-end security via{' '}
+                <span className="text-[#d4c5a9] font-semibold">JWT Authentication & RBAC</span>, and deploying through{' '}
+                <span className="text-[#f5f2eb] font-semibold">Docker & Docker Compose</span>.
+              </p>
+
+              <p className="text-[#a6a095] text-base leading-relaxed">
+                Whether synchronizing real-time agricultural pricing streams across 9 microservices or engineering enterprise HRMS modules for hackathon platforms, I emphasize clean code, zero downtime, and intuitive dashboards.
+              </p>
+
+              {/* 4 Pillars Grid (2x2) */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {focusPillars.map((pillar, idx) => {
+                  const IconComponent = iconMap[pillar.icon] || Server;
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 p-3.5 rounded-xl bg-[#171715]/70 border border-[#2a2925] hover:border-[#d4c5a9]/40 transition-colors"
+                    >
+                      <IconComponent size={20} className="text-[#d4c5a9] mt-0.5 shrink-0" />
+                      <div>
+                        <div className="text-sm font-semibold text-[#f5f2eb] font-heading">
+                          {pillar.title}
+                        </div>
+                        <div className="text-xs text-[#a6a095] mt-0.5 leading-normal">
+                          {pillar.description}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          ))}
-        </motion.div>
-      )}
-    </motion.div>
+          </div>
+
+          {/* Right Column (5 cols): Architecture & System Readiness Widget */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="glass-card p-6 sm:p-7 rounded-3xl border border-[#2a2925] relative overflow-hidden bg-[#171715]/80">
+              
+              {/* Card Header */}
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#2a2925]">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#201f1c] border border-[#383631] text-[#d4c5a9] flex items-center justify-center font-bold">
+                    <Layers size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-[#f5f2eb] font-heading">
+                      Technical Readiness
+                    </h4>
+                    <span className="text-xs text-[#a6a095] font-sans">
+                      Architecture & Stack Metrics
+                    </span>
+                  </div>
+                </div>
+                <div className="px-3 py-1 rounded-lg bg-[#d4c5a9]/15 border border-[#d4c5a9]/30 text-[#e3dac9] text-xs font-mono font-bold">
+                  Enterprise
+                </div>
+              </div>
+
+              {/* Metric Progress Bars */}
+              <div className="space-y-5 font-sans">
+                {/* Microservices */}
+                <div>
+                  <div className="flex justify-between text-sm mb-1.5">
+                    <span className="text-[#a6a095] font-medium">Microservices Architected</span>
+                    <span className="text-[#e3dac9] font-mono font-bold">9 Services (Live Sync)</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#121210] rounded-full overflow-hidden border border-[#2a2925]">
+                    <div className="h-full bg-gradient-to-r from-[#cbb994] to-[#f5f2eb] rounded-full w-[90%] shadow-[0_0_10px_rgba(203,185,148,0.4)]"></div>
+                  </div>
+                </div>
+
+                {/* Spring Boot & Java */}
+                <div>
+                  <div className="flex justify-between text-sm mb-1.5">
+                    <span className="text-[#f5f2eb] font-semibold">Backend Proficiency (Spring Boot 3)</span>
+                    <span className="text-[#d4c5a9] font-mono font-bold">Advanced</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#121210] rounded-full overflow-hidden border border-[#2a2925]">
+                    <div className="h-full bg-gradient-to-r from-[#d4c5a9] to-[#f5f2eb] rounded-full w-[85%]"></div>
+                  </div>
+                </div>
+
+                {/* React & Modern UI */}
+                <div>
+                  <div className="flex justify-between text-sm mb-1.5">
+                    <span className="text-[#a6a095] font-medium">Frontend React & Recharts</span>
+                    <span className="text-[#e3dac9] font-mono">React 18 & 19</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#121210] rounded-full overflow-hidden border border-[#2a2925]">
+                    <div className="h-full bg-gradient-to-r from-[#cbb994] to-[#d4c5a9] rounded-full w-[80%]"></div>
+                  </div>
+                </div>
+
+                {/* Docker Containerization */}
+                <div>
+                  <div className="flex justify-between text-sm mb-1.5">
+                    <span className="text-[#a6a095] font-medium">Containerization & Compose</span>
+                    <span className="text-emerald-400 font-mono font-bold">100% Dockerized</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#121210] rounded-full overflow-hidden border border-[#2a2925]">
+                    <div className="h-full bg-gradient-to-r from-emerald-500 to-[#cbb994] rounded-full w-[95%]"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Quick Metric Pills */}
+              <div className="mt-6 pt-5 border-t border-[#2a2925] grid grid-cols-2 gap-3 text-center">
+                <div className="p-3 rounded-xl bg-[#171715]/60 border border-[#2a2925]">
+                  <div className="text-xl font-bold font-mono text-[#e3dac9]">7.5 / 10</div>
+                  <div className="text-[11px] text-[#a6a095] mt-0.5">Academic CGPA</div>
+                </div>
+                <div className="p-3 rounded-xl bg-[#171715]/60 border border-[#2a2925]">
+                  <div className="text-xl font-bold font-mono text-[#d4c5a9]">4+ Modules</div>
+                  <div className="text-[11px] text-[#a6a095] mt-0.5">HRMS Platform</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
   );
-});
+}
