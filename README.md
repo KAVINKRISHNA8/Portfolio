@@ -62,7 +62,7 @@ This portfolio is ready for instant deployment to [Vercel](https://vercel.com):
    git add .
    git commit -m "feat: initial portfolio release for Kavinkrishna MS"
    git branch -M main
-   git remote add origin https://github.com/KAVINKRISHNA-MS/portfolio.git
+   git remote add origin https://github.com/KAVINKRISHNA8/Portfolio.git
    git push -u origin main
    ```
 2. Go to [vercel.com](https://vercel.com) and click **"Add New Project"**.

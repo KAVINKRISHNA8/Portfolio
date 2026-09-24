@@ -10,7 +10,7 @@ export const personalInfo = {
   location: "Coimbatore, Tamil Nadu, India",
   email: "kavinkrishna2007@email.com",
   github: "https://github.com/KAVINKRISHNA8",
-  githubHandle: "KAVINKRISHNA-MS",
+  githubHandle: "KAVINKRISHNA8",
   linkedin: "https://www.linkedin.com/in/kavin-krishna-5619b4420/",
   availableForHire: true,
 };
@@ -112,7 +112,7 @@ export const projects = [
       "Crafted an interactive React 19 analytics dashboard integrating Leaflet geo-spatial maps and Recharts visual metrics."
     ],
     techStack: ["Java 17", "Spring Boot 3", "React 19", "Microservices", "JWT", "MySQL", "Leaflet Maps", "Recharts", "CRON"],
-    githubUrl: "https://github.com/KAVINKRISHNA-MS",
+    githubUrl: "https://github.com/KAVINKRISHNA8",
     liveUrl: "#contact"
   },
   {
@@ -129,7 +129,7 @@ export const projects = [
       "Built clean, responsive React 18 user interfaces with intuitive self-service portals for employees and HR administrators."
     ],
     techStack: ["Java 17", "Spring Boot 3", "React 18", "Docker", "Docker Compose", "JWT", "REST APIs", "MySQL"],
-    githubUrl: "https://github.com/KAVINKRISHNA-MS",
+    githubUrl: "https://github.com/KAVINKRISHNA8",
     liveUrl: "#contact"
   }
 ];
