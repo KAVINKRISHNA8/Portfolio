@@ -12,10 +12,10 @@ export default function Projects() {
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#f5f2eb] tracking-tight">
-            Featured <span className="bg-gradient-to-r from-[#f5f2eb] via-[#e3dac9] to-[#cbb994] bg-clip-text text-transparent">Projects</span>
+          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1f1c19] tracking-tight">
+            Featured <span className="bg-gradient-to-r from-[#1f1c19] via-[#5c544d] to-[#8c7b6c] bg-clip-text text-transparent">Projects</span>
           </h2>
-          <p className="text-[#a6a095] text-base">
+          <p className="text-[#6b6158] text-base">
             Architecting production-ready full-stack applications with high-concurrency microservices, AI analytics, and clean containerized deployments.
           </p>
         </div>
@@ -25,37 +25,37 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="glass-card rounded-3xl p-6 sm:p-8 border border-[#2a2925] flex flex-col justify-between hover:border-[#d4c5a9]/50 transition-all duration-300 group"
+              className="glass-card rounded-3xl p-6 sm:p-8 border border-[#e8dfd5] flex flex-col justify-between hover:border-[#c5b19e] transition-all duration-300 group bg-[#ffffff]"
             >
               <div>
                 {/* Header row: Badge & Year */}
                 <div className="flex items-center justify-between gap-3 mb-4">
-                  <span className="px-3.5 py-1 rounded-xl text-xs font-mono font-semibold bg-[#d4c5a9]/15 border border-[#d4c5a9]/30 text-[#e3dac9]">
+                  <span className="px-3.5 py-1 rounded-xl text-xs font-mono font-semibold bg-[#ede5dc] border border-[#ded3c6] text-[#443a32]">
                     {project.badge}
                   </span>
-                  <span className="text-xs font-mono text-[#a6a095]">
+                  <span className="text-xs font-mono text-[#8c8278]">
                     {project.year}
                   </span>
                 </div>
 
                 {/* Project Title */}
-                <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f5f2eb] group-hover:text-[#e3dac9] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#1f1c19] group-hover:text-[#5c544d] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-xs text-[#cbb994] font-mono mt-1 mb-4">
+                <p className="text-xs text-[#8c7b6c] font-mono mt-1 mb-4">
                   {project.subtitle}
                 </p>
 
                 {/* Summary */}
-                <p className="text-[#a6a095] text-sm leading-relaxed mb-6">
+                <p className="text-[#5c544d] text-sm leading-relaxed mb-6">
                   {project.description}
                 </p>
 
                 {/* Key Architectural Points */}
                 <div className="space-y-2.5 mb-6">
                   {project.keyPoints.map((pt, pIdx) => (
-                    <div key={pIdx} className="flex items-start gap-2.5 text-xs text-[#a6a095] leading-normal">
-                      <CheckCircle2 size={16} className="text-[#d4c5a9] mt-0.5 shrink-0" />
+                    <div key={pIdx} className="flex items-start gap-2.5 text-xs text-[#5c544d] leading-normal">
+                      <CheckCircle2 size={16} className="text-[#8c7b6c] mt-0.5 shrink-0" />
                       <span>{pt}</span>
                     </div>
                   ))}
@@ -66,7 +66,7 @@ export default function Projects() {
                   {project.techStack.map((tech, tIdx) => (
                     <span
                       key={tIdx}
-                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#171715] border border-[#2a2925] text-[#d4c5a9] group-hover:border-[#383631]"
+                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#f5f0e8] border border-[#e8dfd5] text-[#443a32] group-hover:border-[#c5b19e]"
                     >
                       {tech}
                     </span>
@@ -75,12 +75,12 @@ export default function Projects() {
               </div>
 
               {/* Bottom Actions */}
-              <div className="pt-5 border-t border-[#2a2925] flex items-center justify-between gap-3">
+              <div className="pt-5 border-t border-[#e8dfd5] flex items-center justify-between gap-3">
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-semibold text-[#a6a095] hover:text-[#f5f2eb] transition-colors py-2 px-3 rounded-lg hover:bg-[#201f1c] border border-transparent hover:border-[#2a2925]"
+                  className="flex items-center gap-2 text-xs font-semibold text-[#5c544d] hover:text-[#1f1c19] transition-colors py-2 px-3 rounded-lg hover:bg-[#f5f0e8] border border-transparent hover:border-[#e8dfd5]"
                 >
                   <GithubIcon size={16} />
                   <span>View Repository</span>
@@ -88,7 +88,7 @@ export default function Projects() {
 
                 <button
                   onClick={() => setActiveModalProject(project)}
-                  className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2.5 rounded-xl bg-[#171715] hover:bg-[#e3dac9] hover:text-[#0c0c0b] text-[#d4c5a9] border border-[#2a2925] hover:border-[#e3dac9] transition-all font-sans shadow-sm"
+                  className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2.5 rounded-xl bg-[#1f1c19] hover:bg-[#38332e] text-[#fbf9f5] border border-[#1f1c19] transition-all font-sans shadow-sm"
                 >
                   <span>Architecture Deep Dive</span>
                   <ArrowRight size={14} />
@@ -100,75 +100,75 @@ export default function Projects() {
 
         {/* Modal for Architecture Deep Dive */}
         {activeModalProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in">
-            <div className="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-[#2a2925] relative max-h-[90vh] overflow-y-auto bg-[#171715]/95">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in">
+            <div className="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-[#e8dfd5] relative max-h-[90vh] overflow-y-auto bg-[#ffffff] shadow-2xl">
               <button
                 onClick={() => setActiveModalProject(null)}
-                className="absolute top-6 right-6 p-2 rounded-xl bg-[#201f1c] border border-[#2a2925] text-[#a6a095] hover:text-[#f5f2eb]"
+                className="absolute top-6 right-6 p-2 rounded-xl bg-[#f5f0e8] border border-[#e8dfd5] text-[#5c544d] hover:text-[#1f1c19]"
                 aria-label="Close modal"
               >
                 <X size={18} />
               </button>
 
               <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-[#d4c5a9]/15 border border-[#d4c5a9]/30 text-[#e3dac9]">
+                <span className="px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-[#ede5dc] border border-[#ded3c6] text-[#443a32]">
                   {activeModalProject.badge}
                 </span>
-                <span className="text-xs font-mono text-[#a6a095]">
+                <span className="text-xs font-mono text-[#8c8278]">
                   {activeModalProject.year}
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold font-heading text-[#f5f2eb] mb-1">
+              <h3 className="text-2xl font-bold font-heading text-[#1f1c19] mb-1">
                 {activeModalProject.title}
               </h3>
-              <p className="text-xs text-[#cbb994] font-mono mb-4">
+              <p className="text-xs text-[#8c7b6c] font-mono mb-4">
                 {activeModalProject.subtitle}
               </p>
 
-              <p className="text-[#a6a095] text-sm leading-relaxed mb-5">
+              <p className="text-[#5c544d] text-sm leading-relaxed mb-5">
                 {activeModalProject.description}
               </p>
 
-              <h4 className="text-sm font-bold font-heading text-[#f5f2eb] uppercase tracking-wider mb-3">
+              <h4 className="text-sm font-bold font-heading text-[#1f1c19] uppercase tracking-wider mb-3">
                 Key Engineering Highlights
               </h4>
-              <div className="space-y-3 mb-6 bg-[#121210] p-4 rounded-2xl border border-[#2a2925]">
+              <div className="space-y-3 mb-6 bg-[#f8f4ee] p-4 rounded-2xl border border-[#e8dfd5]">
                 {activeModalProject.keyPoints.map((pt, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#a6a095]">
-                    <span className="text-[#d4c5a9] font-bold mt-0.5">•</span>
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#5c544d]">
+                    <span className="text-[#8c7b6c] font-bold mt-0.5">•</span>
                     <span>{pt}</span>
                   </div>
                 ))}
               </div>
 
-              <h4 className="text-sm font-bold font-heading text-[#f5f2eb] uppercase tracking-wider mb-2">
+              <h4 className="text-sm font-bold font-heading text-[#1f1c19] uppercase tracking-wider mb-2">
                 Technologies & Tools
               </h4>
               <div className="flex flex-wrap gap-2 mb-6">
                 {activeModalProject.techStack.map((tech, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 rounded-lg text-xs font-mono bg-[#171715] border border-[#2a2925] text-[#d4c5a9]"
+                    className="px-3 py-1 rounded-lg text-xs font-mono bg-[#f5f0e8] border border-[#e8dfd5] text-[#443a32]"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#2a2925]">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#e8dfd5]">
                 <a
                   href={activeModalProject.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-[#201f1c] text-[#f5f2eb] border border-[#2a2925] text-xs font-semibold hover:border-[#d4c5a9] transition-colors flex items-center gap-2"
+                  className="px-4 py-2 rounded-xl bg-[#f5f0e8] text-[#1f1c19] border border-[#e8dfd5] text-xs font-semibold hover:border-[#c5b19e] transition-colors flex items-center gap-2"
                 >
                   <GithubIcon size={14} />
                   <span>GitHub Source</span>
                 </a>
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="px-4 py-2 rounded-xl bg-[#e3dac9] text-[#0c0c0b] text-xs font-bold hover:bg-[#f5f2eb] transition-colors"
+                  className="px-4 py-2 rounded-xl bg-[#1f1c19] text-[#fbf9f5] text-xs font-bold hover:bg-[#38332e] transition-colors shadow-sm"
                 >
                   Close Overview
                 </button>

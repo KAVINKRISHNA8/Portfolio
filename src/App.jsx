@@ -11,11 +11,11 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#07080e] text-[#f1f5f9] font-sans selection:bg-violet-500 selection:text-white relative">
-      {/* Background ambient cosmic lighting */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-15 pointer-events-none -z-10" />
-      <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[160px] pointer-events-none -z-10" />
-      <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#fbf9f5] text-[#1f1c19] font-sans selection:bg-[#dfd3c3] selection:text-[#1f1c19] relative">
+      {/* Background ambient warm oatmeal & linen lighting */}
+      <div className="fixed inset-0 bg-grid-pattern opacity-60 pointer-events-none -z-10" />
+      <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-[#ede5dc]/80 rounded-full blur-[160px] pointer-events-none -z-10" />
+      <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-[#dfd5c8]/60 rounded-full blur-[160px] pointer-events-none -z-10" />
 
       <Navbar />
       <main>

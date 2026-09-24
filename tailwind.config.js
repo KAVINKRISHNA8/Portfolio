@@ -4,27 +4,21 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: '#0c0c0b',
-          sub: '#121210',
-          surface: '#171715',
-          card: '#1c1c19',
-          border: '#2a2925',
-          'border-light': '#383631',
-        },
-        surface: '#171715',
-        beige: {
-          light: '#f5f2eb',
-          DEFAULT: '#e3dac9',
-          warm: '#d4c5a9',
-          sand: '#cbb994',
-          muted: '#a6a095',
-          stone: '#7d776c',
-          dark: '#3d3830',
+        nude: {
+          canvas: '#fbf9f5',
+          sub: '#f5f0e8',
+          card: '#ffffff',
+          cardWarm: '#f8f4ee',
+          border: '#e8dfd5',
+          borderDark: '#ded3c6',
+          latte: '#c5b19e',
+          taupe: '#8c7b6c',
+          espresso: '#1f1c19',
+          muted: '#5c544d',
+          stone: '#8c8278',
         },
       },
       fontFamily: {
@@ -33,8 +27,10 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       boxShadow: {
-        'glow-beige': '0 0 35px -5px rgba(212, 197, 169, 0.25)',
-        'glow-sand': '0 0 35px -5px rgba(203, 185, 148, 0.25)',
+        'nude-sm': '0 2px 8px -2px rgba(92, 84, 77, 0.06)',
+        'nude-md': '0 8px 24px -4px rgba(92, 84, 77, 0.08)',
+        'nude-lg': '0 16px 36px -6px rgba(92, 84, 77, 0.10)',
+        'glow-nude': '0 0 35px -5px rgba(197, 177, 158, 0.35)',
       },
     },
   },
