@@ -16,10 +16,10 @@ export default function Achievements() {
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#f8fafc] tracking-tight">
-            Certifications & <span className="bg-gradient-to-r from-[#f8fafc] via-[#fbbf24] to-[#f59e0b] bg-clip-text text-transparent">Workshops</span>
+          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1f1c19] tracking-tight">
+            Certifications & <span className="bg-gradient-to-r from-[#1f1c19] via-[#5c544d] to-[#8c7b6c] bg-clip-text text-transparent">Workshops</span>
           </h2>
-          <p className="text-[#a1a1aa] text-base">
+          <p className="text-[#6b6158] text-base">
             Verified technical modules, hackathon milestones, and specialized engineering training.
           </p>
         </div>
@@ -31,39 +31,39 @@ export default function Achievements() {
             return (
               <div
                 key={idx}
-                className="glass-card p-6 sm:p-7 rounded-2xl border border-[#2a2b36] flex flex-col justify-between hover:border-[#f59e0b]/50 transition-all group"
+                className="glass-card p-6 sm:p-7 rounded-2xl border border-[#e8dfd5] flex flex-col justify-between hover:border-[#c5b19e] transition-all group bg-[#ffffff]"
               >
                 <div>
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-2xl bg-[#17181f] border border-[#2a2b36] text-[#fbbf24] group-hover:border-[#f59e0b]/50 group-hover:text-[#f8fafc] transition-colors shrink-0">
+                      <div className="p-3 rounded-2xl bg-[#f5f0e8] border border-[#ded3c6] text-[#1f1c19] group-hover:border-[#c5b19e] group-hover:bg-[#ede5dc] transition-colors shrink-0 shadow-sm">
                         <IconComp size={22} />
                       </div>
                       <div>
-                        <span className="text-xs font-mono text-[#d97706] font-semibold block">
+                        <span className="text-xs font-mono text-[#8c7b6c] font-semibold block">
                           {item.issuer} {item.location ? `• ${item.location}` : ''}
                         </span>
-                        <h3 className="text-base sm:text-lg font-bold font-heading text-[#f8fafc]">
+                        <h3 className="text-base sm:text-lg font-bold font-heading text-[#1f1c19]">
                           {item.title}
                         </h3>
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#17181f] border border-[#2a2b36] text-[#a1a1aa] shrink-0">
+                    <span className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#f5f0e8] border border-[#e8dfd5] text-[#6b6158] shrink-0">
                       {item.year}
                     </span>
                   </div>
 
-                  <p className="text-[#a1a1aa] text-xs sm:text-sm leading-relaxed mb-4">
+                  <p className="text-[#5c544d] text-xs sm:text-sm leading-relaxed mb-4">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-[#2a2b36] flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+                <div className="pt-3 border-t border-[#e8dfd5] flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700">
                     <CheckCircle2 size={14} />
                     <span>Completed & Verified</span>
                   </span>
-                  <span className="text-[11px] font-mono text-[#a1a1aa] px-2 py-0.5 rounded bg-[#17181f] border border-[#2a2b36]">
+                  <span className="text-[11px] font-mono text-[#443a32] px-2 py-0.5 rounded bg-[#f5f0e8] border border-[#ded3c6]">
                     {item.badge}
                   </span>
                 </div>
