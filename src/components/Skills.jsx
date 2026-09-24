@@ -20,10 +20,10 @@ export default function Skills() {
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#f5f2eb] tracking-tight">
-            Skillset & <span className="bg-gradient-to-r from-[#f5f2eb] via-[#e3dac9] to-[#cbb994] bg-clip-text text-transparent">Technologies</span>
+          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#f8fafc] tracking-tight">
+            Skillset & <span className="bg-gradient-to-r from-[#f8fafc] via-[#fbbf24] to-[#f59e0b] bg-clip-text text-transparent">Technologies</span>
           </h2>
-          <p className="text-[#a6a095] text-base">
+          <p className="text-[#a1a1aa] text-base">
             Comprehensive toolkit spanning full-stack frameworks, enterprise architectures, databases, and DevOps.
           </p>
         </div>
@@ -35,14 +35,14 @@ export default function Skills() {
             return (
               <div
                 key={idx}
-                className="glass-card p-6 rounded-2xl border border-[#2a2925] flex flex-col justify-between hover:-translate-y-1.5 transition-transform group"
+                className="glass-card p-6 rounded-2xl border border-[#2a2b36] flex flex-col justify-between hover:-translate-y-1.5 transition-transform group"
               >
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2.5 rounded-xl bg-[#171715] border border-[#2a2925] text-[#d4c5a9] group-hover:border-[#d4c5a9]/40 group-hover:text-[#f5f2eb] transition-colors">
+                    <div className="p-2.5 rounded-xl bg-[#17181f] border border-[#2a2b36] text-[#fbbf24] group-hover:border-[#f59e0b]/50 group-hover:text-[#f8fafc] transition-colors">
                       <IconComp size={20} />
                     </div>
-                    <h3 className="text-base font-bold font-heading text-[#f5f2eb]">
+                    <h3 className="text-base font-bold font-heading text-[#f8fafc]">
                       {cat.title}
                     </h3>
                   </div>
@@ -51,7 +51,7 @@ export default function Skills() {
                     {cat.skills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#171715]/90 border border-[#2a2925] text-[#d4c5a9] hover:text-[#f5f2eb] hover:border-[#d4c5a9]/50 transition-colors"
+                        className="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#17181f]/90 border border-[#2a2b36] text-[#fbbf24] hover:text-[#f8fafc] hover:border-[#f59e0b]/50 transition-colors"
                       >
                         {skill}
                       </span>
@@ -59,9 +59,9 @@ export default function Skills() {
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-[#2a2925] flex items-center justify-between text-[11px] text-[#a6a095] font-mono">
+                <div className="mt-5 pt-3 border-t border-[#2a2b36] flex items-center justify-between text-[11px] text-[#a1a1aa] font-mono">
                   <span>Proficiency</span>
-                  <span className="text-[#e3dac9] font-semibold">Verified</span>
+                  <span className="text-[#fbbf24] font-semibold">Verified</span>
                 </div>
               </div>
             );

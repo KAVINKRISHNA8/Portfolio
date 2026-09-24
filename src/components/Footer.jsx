@@ -9,22 +9,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="py-12 border-t border-[#2a2925] bg-[#0c0c0b] font-sans">
+    <footer className="py-12 border-t border-[#2a2b36] bg-[#0d0d11] font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Brand Info */}
           <div className="text-center md:text-left">
-            <div className="text-base font-bold font-heading text-[#f5f2eb]">
+            <div className="text-base font-bold font-heading text-[#f8fafc]">
               {personalInfo.name}
             </div>
-            <div className="text-xs text-[#a6a095] font-mono mt-0.5">
+            <div className="text-xs text-[#a1a1aa] font-mono mt-0.5">
               Full-Stack Software Engineer
             </div>
           </div>
 
           {/* Copyright & Tech */}
-          <div className="text-xs text-[#7d776c] text-center font-mono">
+          <div className="text-xs text-[#71717a] text-center font-mono">
             <span>© {new Date().getFullYear()} {personalInfo.name}. Built with React, Vite & Tailwind CSS.</span>
           </div>
 
@@ -34,7 +34,7 @@ export default function Footer() {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-[#171715] border border-[#2a2925] text-[#a6a095] hover:text-[#f5f2eb] hover:border-[#d4c5a9]/40 transition-colors"
+              className="p-2.5 rounded-xl bg-[#17181f] border border-[#2a2b36] text-[#a1a1aa] hover:text-[#f8fafc] hover:border-[#f59e0b]/40 transition-colors"
               aria-label="GitHub Profile"
             >
               <GithubIcon size={16} />
@@ -43,21 +43,21 @@ export default function Footer() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-[#171715] border border-[#2a2925] text-[#a6a095] hover:text-[#d4c5a9] hover:border-[#d4c5a9]/40 transition-colors"
+              className="p-2.5 rounded-xl bg-[#17181f] border border-[#2a2b36] text-[#a1a1aa] hover:text-[#fbbf24] hover:border-[#f59e0b]/40 transition-colors"
               aria-label="LinkedIn Profile"
             >
               <LinkedinIcon size={16} />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="p-2.5 rounded-xl bg-[#171715] border border-[#2a2925] text-[#a6a095] hover:text-[#f5f2eb] hover:border-[#d4c5a9]/40 transition-colors"
+              className="p-2.5 rounded-xl bg-[#17181f] border border-[#2a2b36] text-[#a1a1aa] hover:text-[#f8fafc] hover:border-[#f59e0b]/40 transition-colors"
               aria-label="Email Me"
             >
               <Mail size={16} />
             </a>
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl bg-[#171715] border border-[#2a2925] text-[#a6a095] hover:text-[#f5f2eb] hover:bg-[#22211e] transition-colors ml-2"
+              className="p-2.5 rounded-xl bg-[#17181f] border border-[#2a2b36] text-[#a1a1aa] hover:text-[#f8fafc] hover:bg-[#22232e] transition-colors ml-2"
               aria-label="Scroll back to top"
             >
               <ArrowUp size={16} />
